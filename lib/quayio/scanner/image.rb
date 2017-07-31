@@ -44,9 +44,9 @@ module Quayio
 
         @raw_image = begin
           JSON.parse(
-            RestClient.get("https://quay.io/api/v1/repository/#{repo}/image",
+            RestClient.get("https://quay.io/api/v1/repository/#{repo}/tag/#{tag}/images",
                            authorization: "Bearer #{quayio_token}", accept: :json)
-          )['images'].detect { |i| i['tags'].include?(tag) }
+          )['images'].first
         rescue RestClient::ExceptionWithResponse => err
           return nil if err.http_code == 404 # ignore unknown repos
           raise err
