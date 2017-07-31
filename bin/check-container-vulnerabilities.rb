@@ -37,13 +37,13 @@ class CheckContainerVulnerabilities < Sensu::Plugin::Check::CLI
          long: '--quayio-token TOKEN'
 
   def run
-    result = Quayio::Scanner::Check.new(config[:docker_url],
+    status, message = Quayio::Scanner::Check.new(config[:docker_url],
                                         config[:quayio_token]).run
 
-    if result[0] == :ok
-      ok result[1]
+    if status == :ok
+      ok message
     else
-      critical result[1]
+      critical message
     end
   end
 end
