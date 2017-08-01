@@ -20,10 +20,10 @@ Gem::Specification.new do |spec|
   spec.executables   = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'sensu-plugin'
-  spec.add_dependency 'docker-api'
-  spec.add_dependency 'rest-client'
+  spec.add_dependency 'sensu-plugin', '~> 2.1'
+  spec.add_dependency 'docker-api', '~> 1.33'
+  spec.add_dependency 'rest-client', '~> 2.0'
   spec.add_development_dependency 'bundler', '~> 1.14'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop', '~> 0.49'
 end
