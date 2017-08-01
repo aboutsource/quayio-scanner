@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Benjamin Meichsner']
   spec.email         = ['benjamin.meichsner@aboutsource.net']
 
-  spec.summary       = 'Scan quay.io for vulnerabilties in running containers.'
+  spec.summary       = 'Scan quay.io for vulnerabilties in running docker containers.'
   spec.homepage      = 'https://github.com/aboutsource/quayio-scanner'
   spec.license       = 'MIT'
 
