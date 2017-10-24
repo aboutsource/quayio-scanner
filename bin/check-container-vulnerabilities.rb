@@ -26,7 +26,7 @@ require 'sensu-plugin/utils'
 require 'quayio/scanner'
 
 class CheckContainerVulnerabilities < Sensu::Plugin::Check::CLI
-  include Sensu::Plugin::Util
+  include Sensu::Plugin::Utils
 
   option :docker_url,
          description: 'Docker URL',
