@@ -22,9 +22,12 @@
 #
 
 require 'sensu-plugin/check/cli'
+require 'sensu-plugin/utils'
 require 'quayio/scanner'
 
 class CheckContainerVulnerabilities < Sensu::Plugin::Check::CLI
+  include Sensu::Plugin::Utils
+
   option :docker_url,
          description: 'Docker URL',
          short: '-d URL',
@@ -37,8 +40,9 @@ class CheckContainerVulnerabilities < Sensu::Plugin::Check::CLI
          long: '--quayio-token TOKEN'
 
   def run
-    status, message = Quayio::Scanner::Check.new(config[:docker_url],
-                                        config[:quayio_token]).run
+    quayio_token = config[:quayio_token] || settings['quay.io']['token']
+    status, message = Quayio::Scanner::Check.new(
+        config[:docker_url], quayio_token).run
 
     if status == :ok
       ok message
