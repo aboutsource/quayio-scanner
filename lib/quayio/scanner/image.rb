@@ -4,7 +4,7 @@ require 'rest-client'
 module Quayio
   module Scanner
     class Image < Struct.new(:name, :quayio_token)
-      RELEVANT_SEVERITIES = %w(High Critical)
+      RELEVANT_SEVERITIES = %w(Medium High Critical)
 
       def vulnerable?
         quayio? && image_exists? && scanned? && high_vulnerabilities_present?
