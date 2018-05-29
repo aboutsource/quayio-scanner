@@ -36,9 +36,16 @@ class CheckContainerVulnerabilities < Sensu::Plugin::Check::CLI
          short: '-t TOKEN',
          long: '--quayio-token TOKEN'
 
+  option :whitelist,
+         description: 'Vulnerability whitelist',
+         short: '-w WHITELIST[,WHITELIST]',
+         long: '--whitelist WHITELIST[,WHITELIST]',
+         default: '',
+         proc: proc { |w| w.split(',') }
+
   def run
-    status, message = Quayio::Scanner::Check.new(config[:docker_url],
-                                        config[:quayio_token]).run
+    status, message = Quayio::Scanner::Check.new(
+        config[:docker_url], config[:quayio_token], config[:whitelist]).run
 
     if status == :ok
       ok message

@@ -3,7 +3,7 @@ require 'rest-client'
 
 module Quayio
   module Scanner
-    class Image < Struct.new(:name, :quayio_token)
+    class Image < Struct.new(:name, :quayio_token, :whitelist)
       RELEVANT_SEVERITIES = %w(Medium High Critical)
 
       def vulnerable?
@@ -26,9 +26,10 @@ module Quayio
 
       def high_vulnerabilities_present?
         raw_scan['data']['Layer']['Features'].detect do |f|
-          f['Vulnerabilities'] &&
-            f['Vulnerabilities']
-              .detect { |v| RELEVANT_SEVERITIES.include?(v['Severity']) }
+          f['Vulnerabilities'] && f['Vulnerabilities'].detect do |v|
+            RELEVANT_SEVERITIES.include?(v['Severity']) &&
+              !whitelist.include?(v['Name'])
+          end
         end
       end
 
