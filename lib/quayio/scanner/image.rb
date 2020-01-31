@@ -5,6 +5,7 @@ module Quayio
   module Scanner
     class Image < Struct.new(:name, :quayio_token, :whitelist)
       RELEVANT_SEVERITIES = %w(High Critical)
+      MAX_ATTEMPTS = 5
 
       def vulnerable?
         quayio? && image_exists? && scanned? && high_vulnerabilities_present?
@@ -44,14 +45,22 @@ module Quayio
       def raw_image
         return @raw_image if defined? @raw_image
 
-        @raw_image = begin
-          JSON.parse(
-            RestClient.get("https://quay.io/api/v1/repository/#{repo}/tag/#{tag}/images",
-                           authorization: "Bearer #{quayio_token}", accept: :json)
-          )['images'].first
-        rescue RestClient::ExceptionWithResponse => err
-          return nil if err.http_code == 404 # ignore unknown repos
-          raise err
+        (1..MAX_ATTEMPTS).each do |attempt|
+          begin
+            response = RestClient.get(
+              "https://quay.io/api/v1/repository/#{repo}/tag/#{tag}/images",
+              authorization: "Bearer #{quayio_token}",
+              accept: :json)
+          rescue RestClient::ExceptionWithResponse => err
+            return nil if err.http_code == 404 # ignore unknown repos
+            if err.http_code == 520 and attempt < MAX_ATTEMPTS
+              sleep(rand(10))
+              next
+            end
+            raise err
+          end
+          @raw_image = JSON.parse(response)['images'].first
+          return @raw_image
         end
       end
 
