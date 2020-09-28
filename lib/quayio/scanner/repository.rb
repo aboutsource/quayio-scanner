@@ -9,11 +9,11 @@ module Quayio
       def id(tag)
         begin
           images = api_call("/tag/#{tag}/images")
+          return (images['images'].first)['id']
         rescue RestClient::ExceptionWithResponse => err
           return nil if err.http_code == 404 # ingnore unknown repos
           raise err
         end
-        return (images['images'].first)['id']
       end
 
       def scan(id)
@@ -31,11 +31,8 @@ module Quayio
               accept: :json)
             return JSON.parse(response)
           rescue RestClient::ExceptionWithResponse => err
-            if err.http_code == 520 and attempt < MAX_ATTEMPTS
-              sleep(rand(10))
-              next
-            end
-            raise err
+            raise err if err.http_code != 520 or attempt >= MAX_ATTEMPTS
+            sleep(rand(10))
           end
         end
       end
