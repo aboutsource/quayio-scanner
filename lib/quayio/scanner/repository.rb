@@ -7,13 +7,8 @@ module Quayio
       MAX_ATTEMPTS = 5
 
       def id(tag)
-        begin
-          images = api_call("/tag/#{tag}/images")
-          return (images['images'].first)['id']
-        rescue RestClient::ExceptionWithResponse => err
-          return nil if err.http_code == 404 # ingnore unknown repos
-          raise err
-        end
+        result = api_call("/tag/#{tag}/images")
+        return (result['images'].first)['id']
       end
 
       def scan(id)
