@@ -1,4 +1,3 @@
-require 'quayio/scanner/image'
 require 'docker'
 
 module Quayio

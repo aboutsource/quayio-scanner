@@ -3,25 +3,29 @@ require 'json'
 
 module Quayio
   module Scanner
-    class Repository < Struct.new(:quayio_token, :repo)
+    class Repository < Struct.new(:quayio_token, :org, :repo, :tag)
       MAX_ATTEMPTS = 5
 
-      def id(tag)
-        result = api_call("/tag/#{tag}/images")
-        return (result['images'].first)['id']
+      def id
+        @id ||= get_id
       end
 
-      def scan(id)
-        return api_call("/image/#{id}/security?vulnerabilities=true")
+      def scan
+        api_call("/image/#{id}/security?vulnerabilities=true")
       end
 
       private
 
+      def get_id
+        result = api_call("/tag/#{tag}/images")
+        (result['images'].first)['id']
+      end
+
       def api_call(uri)
-        (1..Float::INFINITY).each do |attempt|
+        (1..).each do |attempt|
           begin
             response = RestClient.get(
-              "https://quay.io/api/v1/repository/#{repo}#{uri}",
+              "https://quay.io/api/v1/repository/#{org}/#{repo}#{uri}",
               authorization: "Bearer #{quayio_token}",
               accept: :json)
             return JSON.parse(response)
