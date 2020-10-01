@@ -1,8 +1,8 @@
 module Quayio
   module Scanner
     class Image
-      RELEVANT_SEVERITIES = %w(High Critical)
-      QUAY_IO_REPO_NAME = /quay.io\/(?<org>[\w-]+)\/(?<repo>[\w-]+):(?<tag>[\w\.-]+)/
+      RELEVANT_SEVERITIES = %w[High Critical].freeze
+      QUAY_IO_REPO_NAME = %r{quay.io\/(?<org>[\w-]+)\/(?<repo>[\w-]+):(?<tag>[\w\.-]+)}.freeze
 
       attr_reader :name
 
@@ -34,7 +34,7 @@ module Quayio
 
       def vulnerabilities_present?
         raw_scan['data']['Layer']['Features'].detect do |f|
-          f['Vulnerabilities'] && f['Vulnerabilities'].detect do |v|
+          f['Vulnerabilities']&.detect do |v|
             RELEVANT_SEVERITIES.include?(v['Severity']) && !whitelist.include?(v['Name'])
           end
         end

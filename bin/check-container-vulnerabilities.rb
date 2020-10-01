@@ -44,8 +44,9 @@ class CheckContainerVulnerabilities < Sensu::Plugin::Check::CLI
          proc: proc { |w| w.split(',') }
 
   def run
-    status, message = Quayio::Scanner::Check.new(
-        config[:docker_url], config[:quayio_token], config[:whitelist]).run
+    status, message = Quayio::Scanner::Check.new(config[:docker_url],
+                                                 config[:quayio_token],
+                                                 config[:whitelist]).run
 
     if status == :ok
       ok message
