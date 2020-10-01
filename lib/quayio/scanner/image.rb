@@ -4,7 +4,7 @@ module Quayio
       RELEVANT_SEVERITIES = %w[High Critical].freeze
       QUAY_IO_REPO_NAME = %r{quay.io\/(?<org>[\w-]+)\/(?<repo>[\w-]+):(?<tag>[\w\.-]+)}.freeze
 
-      attr_reader :name
+      attr_reader :name, :whitelist, :repository
 
       def initialize(name, quayio_token, whitelist)
         @name = name
@@ -22,10 +22,9 @@ module Quayio
 
       private
 
-      attr_reader :whitelist, :repository
-
       def quayio?
-        !!repository
+        # safe guard, do not trust QUAY_IO_REPO_NAME regex match
+        name.match(%r{^quay.io\/})
       end
 
       def scanned?
