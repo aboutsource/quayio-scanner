@@ -12,6 +12,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/aboutsource/quayio-scanner'
   spec.license       = 'MIT'
 
+  spec.required_ruby_version = '>= 2.4.0'
+
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
@@ -21,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'docker-api', '~> 1.33'
   spec.add_dependency 'rest-client', '~> 2.0'
   spec.add_dependency 'sensu-plugin', '~> 2.1'
-  spec.add_development_dependency 'bundler', '~> 1.14'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.7'
   spec.add_development_dependency 'rubocop', '~> 0.49'
