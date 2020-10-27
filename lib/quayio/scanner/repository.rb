@@ -27,11 +27,15 @@ module Quayio
             response = RestClient.get(
               "https://quay.io/api/v1/repository/#{org}/#{repo}#{uri}",
               authorization: "Bearer #{quayio_token}",
-              accept: :json
+              accept: :json,
+              open_timeout: 15
             )
             return JSON.parse(response)
-          rescue RestClient::ExceptionWithResponse => e
-            raise e if e.http_code != 520 || attempt >= MAX_ATTEMPTS
+          rescue RestClient::Exception => e
+            raise e if attempt >= MAX_ATTEMPTS
+
+            # retry later, if we hit cdn rate limiting or on connection errors
+            raise e unless e.http_code == 520 || e.http_code.nil?
 
             sleep(rand(10))
           end
