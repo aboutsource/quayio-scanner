@@ -31,7 +31,7 @@ module Quayio
               open_timeout: 15
             )
             return JSON.parse(response)
-          rescue RestClient::ExceptionWithResponse => e
+          rescue RestClient::Exception => e
             raise e if attempt >= MAX_ATTEMPTS
 
             # retry later, if we hit cdn rate limiting or on connection errors
