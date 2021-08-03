@@ -26,3 +26,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/abouts
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+## Security
+
+* [Snyk](https://app.snyk.io/org/about-source/project/6eb2d381-87e7-49c4-a47f-ccad97f33ae3)
