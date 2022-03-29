@@ -2,7 +2,7 @@ module Quayio
   module Scanner
     class Image
       RELEVANT_SEVERITIES = %w[High Critical].freeze
-      QUAY_IO_REPO_NAME = %r{quay.io\/(?<org>[\w-]+)\/(?<repo>[\w-]+):(?<tag>[\w\.-]+)}.freeze
+      QUAY_IO_REPO_NAME = %r{quay.io\/(?<org>[\w-]+)\/(?<repo>[\w-]+):(?<tag>[\w.-]+)}.freeze
 
       attr_reader :name, :whitelist, :repository
 
