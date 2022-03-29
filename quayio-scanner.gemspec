@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'docker-api', '~> 1.33'
   spec.add_dependency 'rest-client', '~> 2.1'
   spec.add_dependency 'sensu-plugin', '~> 4.0'
-  spec.add_development_dependency 'bundler', '~> 2.2'
+  spec.add_development_dependency 'bundler', '~> 2.1'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.7'
   spec.add_development_dependency 'rubocop', '~> 0.49'
