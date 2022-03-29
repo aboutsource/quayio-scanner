@@ -6,19 +6,19 @@ module Quayio
     Repository = Struct.new(:quayio_token, :org, :repo, :tag) do
       MAX_ATTEMPTS = 5
 
-      def id
-        @id ||= fetch_id
-      end
-
       def scan
-        api_call("/image/#{id}/security?vulnerabilities=true")
+        api_call("/manifest/#{manifest_ref}/security?vulnerabilities=true")
       end
 
       private
 
-      def fetch_id
-        result = api_call("/tag/#{tag}/images")
-        (result['images'].first)['id']
+      def manifest_ref
+        @manifest_ref ||= fetch_manifest_ref
+      end
+
+      def fetch_manifest_ref
+        result = api_call("/tag/?specificTag=#{tag}&onlyActiveTags=1")
+        (result['tags'].first)['manifest_digest']
       end
 
       def api_call(uri)
