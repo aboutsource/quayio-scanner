@@ -27,6 +27,10 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/abouts
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
+### json
+
+Copyright 2019 - present [Florian Frank](mailto:flori@ping.de) - The gem [json](https://github.com/flori/json/) is distributed under the [Ruby License](LICENSE/json/LICENSE.txt).
+
 ## Security
 
 * [Snyk](https://app.snyk.io/org/about-source/project/6eb2d381-87e7-49c4-a47f-ccad97f33ae3)
