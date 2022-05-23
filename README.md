@@ -18,10 +18,25 @@ Or install it yourself as:
 
     $ gem install quayio-scanner
 
+## USAGE
+
+This plugin attempts to fetch vulnerabilities for all running containers
+
+### Parameters
+
+| cli param short | cli param long       | help                    |
+| --------------- | -------------------- | ----------------------- |
+| -d URL          | --docker-url URL     | Docker URL              |
+| -t TOKEN        | --quayio-token TOKEN | Quay.io oauth token     |
+| -w WHITELIST    | --whitelist          | Vulnerability whitelist |
+
+### Example
+
+    $ check-container-vulnerabilities.rb --docker-url unix:///var/run/docker.sock --quayio-token AccessTokenGoesHere
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/aboutsource/quayio-scanner.
-
 
 ## License
 
@@ -33,4 +48,4 @@ Copyright 2019 - present [Florian Frank](mailto:flori@ping.de) - The gem [json](
 
 ## Security
 
-* [Snyk](https://app.snyk.io/org/about-source/project/6eb2d381-87e7-49c4-a47f-ccad97f33ae3)
+- [Snyk](https://app.snyk.io/org/about-source/project/6eb2d381-87e7-49c4-a47f-ccad97f33ae3)

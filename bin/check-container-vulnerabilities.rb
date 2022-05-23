@@ -4,7 +4,7 @@
 #
 # DESCRIPTION:
 #
-#   This plugin attempts to fetch vulnerabilties for all running containers
+#   This plugin attempts to fetch vulnerabilities for all running containers
 #
 # OUTPUT:
 #   plain text
