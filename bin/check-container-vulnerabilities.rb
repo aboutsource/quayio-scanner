@@ -18,7 +18,8 @@
 #   gem: rest-client
 #
 # USAGE:
-#   ./check-container-vulnerabilities.rb -d <docker-url> -t <quay-io-oauth-token>
+#   ./check-container-vulnerabilities.rb \
+#     -d <docker-url> -t <quay-io-oauth-token>
 #
 
 require 'sensu-plugin/check/cli'

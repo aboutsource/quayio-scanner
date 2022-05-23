@@ -9,7 +9,10 @@ module Quayio
         if vulnerable_images.empty?
           [:ok, "#{containers.size} Containers are ok"]
         else
-          [:critical, "The images are insecure: #{vulnerable_images.join(', ')}"]
+          [
+            :critical,
+            "The images are insecure: #{vulnerable_images.join(', ')}"
+          ]
         end
       end
 
