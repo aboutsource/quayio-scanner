@@ -1,6 +1,7 @@
 # Quayio::Scanner
 
-Scan quay.io for vulnerabilties in running docker containers. Implemented as sensu check.
+Quayio Scanner translates critical vulnerabilities in running docker containers
+into Sensu check results to transform vulnerability scans into actionable alerts.
 
 ## Installation
 
