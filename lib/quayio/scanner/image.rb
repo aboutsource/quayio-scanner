@@ -2,7 +2,8 @@ module Quayio
   module Scanner
     class Image
       RELEVANT_SEVERITIES = %w[High Critical].freeze
-      QUAY_IO_REPO_NAME = %r{quay.io\/(?<org>[\w-]+)\/(?<repo>[\w-]+):(?<tag>[\w.-]+)}.freeze
+      QUAY_IO_REPO_NAME =
+        %r{quay.io\/(?<org>[\w-]+)\/(?<repo>[\w-]+):(?<tag>[\w.-]+)}.freeze
 
       attr_reader :name, :whitelist, :repository
 
@@ -24,7 +25,7 @@ module Quayio
 
       def quayio?
         # safe guard, do not trust QUAY_IO_REPO_NAME regex match
-        !!name.match(%r{^quay.io\/})
+        name.match?(%r{^quay.io\/})
       end
 
       def scanned?
@@ -32,11 +33,12 @@ module Quayio
       end
 
       def vulnerabilities_present?
-        !!raw_scan['data']['Layer']['Features'].detect do |f|
+        !raw_scan['data']['Layer']['Features'].detect do |f|
           f['Vulnerabilities']&.detect do |v|
-            RELEVANT_SEVERITIES.include?(v['Severity']) && !whitelist.include?(v['Name'])
+            RELEVANT_SEVERITIES.include?(v['Severity']) &&\
+            !whitelist.include?(v['Name'])
           end
-        end
+        end.nil?
       end
 
       def raw_scan

@@ -1,6 +1,7 @@
 # Quayio::Scanner
 
-Scan quay.io for vulnerabilties in running docker containers. Implemented as sensu check.
+Quayio Scanner translates critical vulnerabilities in running docker containers
+into Sensu check results to transform vulnerability scans into actionable alerts.
 
 ## Installation
 
@@ -18,10 +19,25 @@ Or install it yourself as:
 
     $ gem install quayio-scanner
 
+## USAGE
+
+This plugin attempts to fetch vulnerabilities for all running containers
+
+### Parameters
+
+| Parameter     | Description             |
+|---------------|-------------------------|
+| -d URL        | Docker URL              |
+| -t TOKEN      | Quay.io oauth token     |
+| -w WHITELIST  | Vulnerability whitelist |
+
+### Example
+
+    $ check-container-vulnerabilities.rb --docker-url unix:///var/run/docker.sock --quayio-token AccessTokenGoesHere
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/aboutsource/quayio-scanner.
-
 
 ## License
 
@@ -33,4 +49,4 @@ Copyright 2019 - present [Florian Frank](mailto:flori@ping.de) - The gem [json](
 
 ## Security
 
-* [Snyk](https://app.snyk.io/org/about-source/project/6eb2d381-87e7-49c4-a47f-ccad97f33ae3)
+- [Snyk](https://app.snyk.io/org/about-source/project/6eb2d381-87e7-49c4-a47f-ccad97f33ae3)

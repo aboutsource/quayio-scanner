@@ -1,14 +1,28 @@
 AllCops:
   TargetRubyVersion: 2.3
 
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+
+Metrics:
+  Enabled: false
+
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 
-Metrics/MethodLength:
-  Max: 50
+Style/HashEachMethods:
+  Enabled: true
 
-Metrics/BlockLength:
-  Max: 200
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true

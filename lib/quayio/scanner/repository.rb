@@ -18,7 +18,7 @@ module Quayio
 
       def fetch_manifest_ref
         result = api_call("/tag/?specificTag=#{tag}&onlyActiveTags=1")
-        (result['tags'].first)['manifest_digest']
+        result['tags'].first['manifest_digest']
       end
 
       def api_call(uri)

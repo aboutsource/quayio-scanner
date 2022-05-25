@@ -4,7 +4,7 @@
 #
 # DESCRIPTION:
 #
-#   This plugin attempts to fetch vulnerabilties for all running containers
+#   This plugin attempts to fetch vulnerabilities for all running containers
 #
 # OUTPUT:
 #   plain text
@@ -18,7 +18,8 @@
 #   gem: rest-client
 #
 # USAGE:
-#   ./check-container-vulnerabilities.rb -d <docker-url> -t <quay-io-oauth-token>
+#   ./check-container-vulnerabilities.rb \
+#     -d <docker-url> -t <quay-io-oauth-token>
 #
 
 require 'sensu-plugin/check/cli'
