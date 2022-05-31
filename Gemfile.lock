@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    quayio-scanner (0.3.0)
+    quayio-scanner (0.3.1)
       docker-api (~> 1.33)
       rest-client (~> 2.1)
       sensu-plugin (~> 4.0)
