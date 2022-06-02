@@ -25,7 +25,7 @@ module Quayio
 
       def quayio?
         # safe guard, do not trust QUAY_IO_REPO_NAME regex match
-        name.match?(%r{^quay.io\/})
+        !name.match(%r{^quay.io\/}).nil?
       end
 
       def scanned?
