@@ -35,8 +35,8 @@ module Quayio
       def vulnerabilities_present?
         !raw_scan['data']['Layer']['Features'].detect do |f|
           f['Vulnerabilities']&.detect do |v|
-            RELEVANT_SEVERITIES.include?(v['Severity']) &&\
-            !whitelist.include?(v['Name'])
+            RELEVANT_SEVERITIES.include?(v['Severity']) && \
+              !whitelist.include?(v['Name'])
           end
         end.nil?
       end
