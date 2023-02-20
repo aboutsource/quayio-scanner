@@ -44,10 +44,18 @@ class CheckContainerVulnerabilities < Sensu::Plugin::Check::CLI
          default: '',
          proc: proc { |w| w.split(',') }
 
+  option :ignore_namespace_names,
+         description: 'Namespace names to ignore',
+         short: '-n NAMESPACE_NAME[,NAMESPACE_NAME]',
+         long: '--ignore-namespace-names NAMESPACE_NAME[,NAMESPACE_NAME]',
+         default: '',
+         proc: proc { |w| w.split(',') }
+
   def run
     status, message = Quayio::Scanner::Check.new(config[:docker_url],
                                                  config[:quayio_token],
-                                                 config[:whitelist]).run
+                                                 config[:whitelist],
+                                                 config[:ignore_namespace_names]).run
 
     if status == :ok
       ok message

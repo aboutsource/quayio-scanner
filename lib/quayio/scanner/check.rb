@@ -2,7 +2,7 @@ require 'docker'
 
 module Quayio
   module Scanner
-    Check = Struct.new(:docker_url, :quayio_token, :whitelist) do
+    Check = Struct.new(:docker_url, :quayio_token, :whitelist, :ignore_namespace_names) do
       def run
         Docker.url = docker_url
 
@@ -27,7 +27,7 @@ module Quayio
 
       def vulnerable_images
         containers
-          .map { |container| Image.new(container, quayio_token, whitelist) }
+          .map { |container| Image.new(container, quayio_token, whitelist, ignore_namespace_names) }
           .select(&:vulnerable?)
           .map(&:name)
       end

@@ -5,11 +5,12 @@ module Quayio
       QUAY_IO_REPO_NAME =
         %r{quay.io\/(?<org>[\w-]+)\/(?<repo>[\w-]+):(?<tag>[\w.-]+)}.freeze
 
-      attr_reader :name, :whitelist, :repository
+      attr_reader :name, :whitelist, :repository, :ignore_namespace_names
 
-      def initialize(name, quayio_token, whitelist)
+      def initialize(name, quayio_token, whitelist, ignore_namespace_names)
         @name = name
         @whitelist = whitelist
+        @ignore_namespace_names = ignore_namespace_names
 
         @name.match(QUAY_IO_REPO_NAME) do |r|
           org, repo, tag = r.captures
@@ -36,7 +37,8 @@ module Quayio
         !raw_scan['data']['Layer']['Features'].detect do |f|
           f['Vulnerabilities']&.detect do |v|
             RELEVANT_SEVERITIES.include?(v['Severity']) && \
-              !whitelist.include?(v['Name'])
+              !whitelist.include?(v['Name']) && \
+              !ignore_namespace_names.include?(v['NamespaceName'])
           end
         end.nil?
       end
