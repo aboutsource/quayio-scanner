@@ -25,11 +25,12 @@ This plugin attempts to fetch vulnerabilities for all running containers
 
 ### Parameters
 
-| Parameter     | Description             |
-|---------------|-------------------------|
-| -d URL        | Docker URL              |
-| -t TOKEN      | Quay.io oauth token     |
-| -w WHITELIST  | Vulnerability whitelist |
+| Parameter                | Description                             |
+|--------------------------|-----------------------------------------|
+| -d URL                   | Docker URL                              |
+| -t TOKEN                 | Quay.io oauth token                     |
+| -w WHITELIST[,WHITELIST] | Vulnerability whitelist                 |
+| -n NAMESPACE[,NAMESPACE] | Namespaces (quay.io scanners) to ignore |
 
 ### Example
 
