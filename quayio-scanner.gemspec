@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.executables   = Dir.glob('bin/**/*.rb').map { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'docker-api', '~> 1.33'
+  spec.add_dependency 'docker-api', '~> 2.4'
   spec.add_dependency 'rest-client', '~> 2.1'
   spec.add_dependency 'sensu-plugin', '~> 4.0'
   spec.add_development_dependency 'bundler', '~> 2.1'
