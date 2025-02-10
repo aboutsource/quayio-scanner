@@ -23,22 +23,20 @@ module Quayio
 
       def api_call(uri)
         (1..Float::INFINITY).each do |attempt|
-          begin
-            response = RestClient.get(
-              "https://quay.io/api/v1/repository/#{org}/#{repo}#{uri}",
-              authorization: "Bearer #{quayio_token}",
-              accept: :json,
-              open_timeout: 15
-            )
-            return JSON.parse(response)
-          rescue RestClient::Exception => e
-            raise e if attempt >= MAX_ATTEMPTS
+          response = RestClient.get(
+            "https://quay.io/api/v1/repository/#{org}/#{repo}#{uri}",
+            authorization: "Bearer #{quayio_token}",
+            accept: :json,
+            open_timeout: 15
+          )
+          return JSON.parse(response)
+        rescue RestClient::Exception => e
+          raise e if attempt >= MAX_ATTEMPTS
 
-            # retry later, if we hit cdn rate limiting or on connection errors
-            raise e unless e.http_code == 520 || e.http_code.nil?
+          # retry later, if we hit cdn rate limiting or on connection errors
+          raise e unless e.http_code == 520 || e.http_code.nil?
 
-            sleep(rand(10))
-          end
+          sleep(rand(10))
         end
       end
     end
